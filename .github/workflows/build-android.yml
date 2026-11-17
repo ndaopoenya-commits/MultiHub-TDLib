@@ -1,4 +1,5 @@
 
+
 name: Build TDLib Android
 
 on:
@@ -58,12 +59,18 @@ jobs:
         working-directory: example/android
         run: ./build-tdlib.sh
 
+      - name: Check generated packages
+        working-directory: example/android
+        run: |
+          ls -lh tdlib/tdlib.zip
+          ls -lh tdlib/tdlib-debug.zip
+
       - name: Upload TDLib packages
         uses: actions/upload-artifact@v4
         with:
           name: MultiHub-TDLib-Android
           path: |
-            example/android/tdlib.zip
-            example/android/tdlib-debug.zip
+            example/android/tdlib/tdlib.zip
+            example/android/tdlib/tdlib-debug.zip
           if-no-files-found: error
           retention-days: 14
